@@ -155,11 +155,20 @@
 		getPointsAtEvent : function(e){
 			var pointsArray = [],
 				eventPosition = helpers.getRelativePosition(e);
+			
 			helpers.each(this.datasets,function(dataset){
 				helpers.each(dataset.points,function(point){
 					if (point.inRange(eventPosition.x,eventPosition.y)) pointsArray.push(point);
 				});
 			},this);
+
+			if (pointsArray.length > 0) {
+				var total = pointsArray.length / this.datasets.length;
+				var middle = Math.floor(total / 2);
+
+				pointsArray = [pointsArray[middle], pointsArray[middle + total]];
+			}
+
 			return pointsArray;
 		},
 		buildScale : function(labels){

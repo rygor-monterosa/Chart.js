@@ -1,5 +1,3 @@
-console.log('???');
-
 /*!
  * Chart.js
  * http://chartjs.org/
@@ -1062,8 +1060,8 @@ console.log('???');
 								//Include any colour information about the element
 								tooltipLabels.push(helpers.template(this.options.multiTooltipTemplate, element));
 								tooltipColors.push({
-									fill: element._saved.fillColor || element.fillColor,
-									stroke: element._saved.strokeColor || element.strokeColor
+									fill: element._saved.highlightFill || element.highlightFill,
+									stroke: element._saved.highlightStroke || element.highlightStroke
 								});
 
 							}, this);
@@ -1379,9 +1377,6 @@ console.log('???');
 	
 	Chart.Tooltip = Chart.Element.extend({
 		draw : function(){
-			console.log(this.fillColor);
-
-
 			var ctx = this.chart.ctx;
 
 			ctx.font = fontString(this.fontSize,this.fontStyle,this.fontFamily);
@@ -1411,8 +1406,6 @@ console.log('???');
 				tooltipY = this.y - tooltipHeight;
 
 			ctx.fillStyle = this.fillColor;
-
-			console.log(this.fillColor);
 
 			// Custom Tooltips
 			if(this.custom){
@@ -2826,11 +2819,20 @@ console.log('???');
 		getPointsAtEvent : function(e){
 			var pointsArray = [],
 				eventPosition = helpers.getRelativePosition(e);
+			
 			helpers.each(this.datasets,function(dataset){
 				helpers.each(dataset.points,function(point){
 					if (point.inRange(eventPosition.x,eventPosition.y)) pointsArray.push(point);
 				});
 			},this);
+
+			if (pointsArray.length > 0) {
+				var total = pointsArray.length / this.datasets.length;
+				var middle = Math.floor(total / 2);
+
+				pointsArray = [pointsArray[middle], pointsArray[middle + total]];
+			}
+
 			return pointsArray;
 		},
 		buildScale : function(labels){
