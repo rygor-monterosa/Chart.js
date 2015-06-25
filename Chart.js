@@ -1,3 +1,5 @@
+console.log('???');
+
 /*!
  * Chart.js
  * http://chartjs.org/
@@ -1377,6 +1379,8 @@
 	
 	Chart.Tooltip = Chart.Element.extend({
 		draw : function(){
+			console.log(this.fillColor);
+
 
 			var ctx = this.chart.ctx;
 
@@ -1407,6 +1411,8 @@
 				tooltipY = this.y - tooltipHeight;
 
 			ctx.fillStyle = this.fillColor;
+
+			console.log(this.fillColor);
 
 			// Custom Tooltips
 			if(this.custom){

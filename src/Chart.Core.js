@@ -1060,8 +1060,8 @@
 								//Include any colour information about the element
 								tooltipLabels.push(helpers.template(this.options.multiTooltipTemplate, element));
 								tooltipColors.push({
-									fill: element._saved.fillColor || element.fillColor,
-									stroke: element._saved.strokeColor || element.strokeColor
+									fill: element._saved.highlightFill || element.highlightFill,
+									stroke: element._saved.highlightStroke || element.highlightStroke
 								});
 
 							}, this);
@@ -1377,7 +1377,6 @@
 	
 	Chart.Tooltip = Chart.Element.extend({
 		draw : function(){
-
 			var ctx = this.chart.ctx;
 
 			ctx.font = fontString(this.fontSize,this.fontStyle,this.fontFamily);
