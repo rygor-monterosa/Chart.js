@@ -1633,9 +1633,8 @@
 				firstRotated,
 				lastRotated;
 
-
-			this.xScalePaddingRight = lastWidth/2 + 3;
-			this.xScalePaddingLeft = (firstWidth/2 > this.yLabelWidth) ? firstWidth/2 : this.yLabelWidth;
+			this.xScalePaddingRight = this.padding;
+			this.xScalePaddingLeft = this.padding;
 
 			this.xLabelRotation = 0;
 			if (this.display){
@@ -1653,25 +1652,11 @@
 					firstRotated = cosRotation * firstWidth;
 					lastRotated = cosRotation * lastWidth;
 
-					// We're right aligning the text now.
-					if (firstRotated + this.fontSize / 2 > this.yLabelWidth){
-						this.xScalePaddingLeft = firstRotated + this.fontSize / 2;
-					}
-					this.xScalePaddingRight = this.fontSize/2;
-
-
 					this.xLabelRotation++;
 					this.xLabelWidth = cosRotation * originalLabelWidth;
-
 				}
-				if (this.xLabelRotation > 0){
-					this.endPoint -= Math.sin(toRadians(this.xLabelRotation))*originalLabelWidth + 3;
-				}
-			}
-			else{
+			} else{
 				this.xLabelWidth = 0;
-				this.xScalePaddingRight = this.padding;
-				this.xScalePaddingLeft = this.padding;
 			}
 
 		},
@@ -1759,6 +1744,7 @@
 				},this);
 
 				each(this.xLabels,function(label,index){
+					this.startPoint = 0;
 					var xPos = this.calculateX(index) + aliasPixel(this.lineWidth),
 						// Check to see if line/bar here and decide where to place the line
 						linePos = this.calculateX(index - (this.offsetGridLines ? 0.5 : 0)) + aliasPixel(this.lineWidth),
