@@ -1552,13 +1552,13 @@
 		},
 		buildYLabels : function(){
 			this.yLabels = [];
+			this.yLabelWidth = 0;
 
 			var stepDecimalPlaces = getDecimalPlaces(this.stepValue);
 
 			for (var i=0; i<=this.steps; i++){
 				this.yLabels.push(template(this.templateString,{value:(this.min + (i * this.stepValue)).toFixed(stepDecimalPlaces)}));
 			}
-			this.yLabelWidth = (this.display && this.showLabels) ? longestText(this.ctx,this.font,this.yLabels) + 10 : 0;
 		},
 		addXLabel : function(label){
 			this.xLabels.push(label);
@@ -1714,10 +1714,10 @@
 						linePositionY = Math.round(yLabelCenter),
 						drawHorizontalLine = this.showHorizontalLines;
 
-					ctx.textAlign = "right";
+					ctx.textAlign = "left";
 					ctx.textBaseline = "middle";
 					if (this.showLabels){
-						ctx.fillText(labelString,xStart - 10,yLabelCenter);
+						ctx.fillText(labelString,xStart + 3,yLabelCenter - 6);
 					}
 
 					// This is X axis, so draw it
