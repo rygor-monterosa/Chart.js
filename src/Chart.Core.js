@@ -1576,7 +1576,7 @@
 
 			// To do that we need the base line at the top and base of the chart, assuming there is no x label rotation
 			this.startPoint = (this.display) ? this.fontSize : 0;
-			this.endPoint = (this.display) ? this.height - (this.fontSize * 1.5) - 5 : this.height; // -5 to pad labels
+			this.endPoint = this.height; // -5 to pad labels
 
 			// Apply padding settings to the start and end point.
 			this.startPoint += this.padding;
@@ -1791,26 +1791,8 @@
 						ctx.closePath();
 					}
 
-
 					ctx.lineWidth = this.lineWidth;
 					ctx.strokeStyle = this.lineColor;
-
-
-					// Small lines at the bottom of the base grid line
-					ctx.beginPath();
-					ctx.moveTo(linePos,this.endPoint);
-					ctx.lineTo(linePos,this.endPoint + 5);
-					ctx.stroke();
-					ctx.closePath();
-
-					ctx.save();
-					ctx.translate(xPos,(isRotated) ? this.endPoint + 12 : this.endPoint + 8);
-					ctx.rotate(toRadians(this.xLabelRotation)*-1);
-					ctx.font = this.font;
-					ctx.textAlign = (isRotated) ? "right" : "center";
-					ctx.textBaseline = (isRotated) ? "middle" : "top";
-					ctx.fillText(label, 0, 0);
-					ctx.restore();
 				},this);
 
 			}
